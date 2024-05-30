@@ -12,13 +12,9 @@ public class TipoSeguro {
 		return descripcion;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
+	
 	public static int getIdTipo() {
 		return idTipo;
 	}
-	
 	
 }

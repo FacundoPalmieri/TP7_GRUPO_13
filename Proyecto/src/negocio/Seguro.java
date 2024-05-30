@@ -5,9 +5,11 @@ public class Seguro {
 	private String descripcion;
 	private double costoContratacion;
 	private double costoMaximoAsegurado;
+	private TipoSeguro tipoSeguro;
 	
 	public Seguro(){
 		id++;
+		tipoSeguro=new TipoSeguro();
 	}
 
 	public String getDescripcion() {
@@ -37,6 +39,13 @@ public class Seguro {
 	public static int getId() {
 		return id;
 	}
+
+	public int getIdTipoSeguro() {
+		return TipoSeguro.getIdTipo();
+	}
 	
+	public String getDescripcionTipoSeguro() {
+		return tipoSeguro.getDescripcion();
+	}
 	
 }
