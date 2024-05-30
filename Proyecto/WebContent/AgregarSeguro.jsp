@@ -4,9 +4,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Agregar seguros</title>
 </head>
 <body>
-
+	<form action="AgregarSeguro.jsp" method="get">
+		<a href = "Inicio.jsp"> Inicio</a>
+		<a href = "AgregarSeguro.jsp"> Agregar Seguro</a>
+		<a href = "ListarSeguro.jsp"> Listar Seguro</a>
+		<br><br>
+		ID Seguro: <input type="text" name="txtIDSeguro">
+		<br>
+		Descripción: <input type="text" name="txtDescripcion">
+		<br>
+		<br>
+			<b>Tipo seguro: </b>
+			<select name="tipoSeguro">
+			</select>
+		<br>
+		Costo contratación: <input type="text" name="txtCostoContratacion">
+		<br>
+		Costo máximo asegurado: <input type="text" name="txtCostoMaximo">
+		<br>
+		<input type="submit" value="Aceptar" name="btnAceptar">
+	</form>
 </body>
 </html>

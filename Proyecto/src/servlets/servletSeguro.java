@@ -1,4 +1,4 @@
-package controlador;
+package servlets;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,17 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Agregar
+ * Servlet implementation class servletSeguro
  */
-@WebServlet("/Agregar")
-public class Agregar extends HttpServlet {
+@WebServlet("/servletSeguro")
+public class servletSeguro extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
-     * @see HttpServlet#HttpServlet()
+     * Default constructor. 
      */
-    public Agregar() {
-        super();
+    public servletSeguro() {
         // TODO Auto-generated constructor stub
     }
 
