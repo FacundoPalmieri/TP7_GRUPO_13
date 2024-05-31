@@ -1,20 +1,31 @@
 package negocio;
 
 public class TipoSeguro {
-	private static int idTipo=0;
+	private int idTipo;
 	private String descripcion;
 	
-	public TipoSeguro() {
-		idTipo++;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
+	 public TipoSeguro() {
+	    }
 	
-	public static int getIdTipo() {
-		return idTipo;
+	public TipoSeguro(int idTipo, String descripcion) {
+	    this.idTipo = idTipo;
+        this.descripcion = descripcion;
 	}
+
+	public int getIdTipo() {
+        return idTipo;
+    }
+
+    public void setIdTipo(int idTipo) {
+        this.idTipo = idTipo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 	
 }
