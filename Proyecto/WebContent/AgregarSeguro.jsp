@@ -1,5 +1,6 @@
 <%@page import="negocio.TipoSeguro" %>
 <%@page import="java.util.ArrayList" %>
+<%@page import="negocio.Seguro" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%> 
     
@@ -12,10 +13,9 @@
 <body>
 	<form action="servletSeguro" method="post">
 		<a href = "Inicio.jsp"> Inicio</a>
-		<a href = "AgregarSeguro.jsp"> Agregar Seguro</a>
 		<a href = "ListarSeguro.jsp"> Listar Seguro</a>
 		<br><br>
-		ID Seguro: <input type="text" name="txtIDSeguro">
+		ID Seguro: <%=request.getAttribute("idSeguro") %>
 		<br>
 		Descripción: <input type="text" name="txtDescripcion">
 		<br>

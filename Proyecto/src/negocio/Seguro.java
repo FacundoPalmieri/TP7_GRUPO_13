@@ -1,16 +1,17 @@
 package negocio;
 
 public class Seguro {
-	private static int id;
+	private int id;
 	private String descripcion;
 	private double costoContratacion;
 	private double costoMaximoAsegurado;
 	private TipoSeguro tipoSeguro;
 	
 	public Seguro() {
+		tipoSeguro=new TipoSeguro();
     }
 	
-	public Seguro(int id, String descripcion, double costoContratacion, double costoMaximoAsegurado, TipoSeguro tipoSeguro) {
+	public Seguro(int id,String descripcion, double costoContratacion, double costoMaximoAsegurado, TipoSeguro tipoSeguro) {
         this.descripcion = descripcion;
         this.costoContratacion = costoContratacion;
         this.costoMaximoAsegurado = costoMaximoAsegurado;
@@ -21,6 +22,10 @@ public class Seguro {
 	        return id;
 	    }
 
+	 public void setId(int id) {
+		 this.id=id;
+	 }
+	 
 	    public String getDescripcion() {
 	        return descripcion;
 	    }
@@ -44,13 +49,22 @@ public class Seguro {
 	    public void setCostoMaximoAsegurado(double costoMaximoAsegurado) {
 	        this.costoMaximoAsegurado = costoMaximoAsegurado;
 	    }
-
+	    
+	    /*
 	    public TipoSeguro getTipoSeguro() {
 	        return tipoSeguro;
-	    }
+	    }*/
 
+	    /*
 	    public void setTipoSeguro(TipoSeguro tipoSeguro) {
 	        this.tipoSeguro = tipoSeguro;
+	    }*/
+	    
+	    public void setIdTipoSeguro(int idTipoSeguro) {
+	    	tipoSeguro.setIdTipo(idTipoSeguro);
 	    }
-	
+	    
+	    public int getIdTipoSeguro() {
+	    	return tipoSeguro.getIdTipo();
+	    }
 }

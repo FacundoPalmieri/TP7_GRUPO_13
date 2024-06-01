@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import negocio.AccesoDB;
+import negocio.ListarSeguros;
 import negocio.ListarTiposSeguro;
 import negocio.Seguro;
 import negocio.TipoSeguro;
@@ -41,6 +42,15 @@ public class servletSeguro extends HttpServlet {
 		    listaTiposSeguros = ts.listarTodos();
 		    request.setAttribute("ListaTipos", listaTiposSeguros);
 		    
+		    ListarSeguros ls = new ListarSeguros();
+		    ArrayList<Seguro> listaSeguros = new ArrayList<Seguro>();
+		    listaSeguros=ls.listar();
+		    int idSeguro=1;
+		    if(listaSeguros.size()>0) {
+		    	idSeguro = listaSeguros.get(listaSeguros.size()-1).getId()+1;
+		    }
+		    request.setAttribute("idSeguro", idSeguro);
+		    
 		    RequestDispatcher rd = request.getRequestDispatcher("AgregarSeguro.jsp");
 		    rd.forward(request, response);
 		};
@@ -51,7 +61,8 @@ public class servletSeguro extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 	String descripcion = request.getParameter("txtDescripcion");
+		 	/*
+			String descripcion = request.getParameter("txtDescripcion");
 		    String tipoSeguroParam = request.getParameter("tipoSeguro");
 		    int idTipo = 1; 
 		    
@@ -71,7 +82,7 @@ public class servletSeguro extends HttpServlet {
 		        response.getWriter().println("El seguro fue agregado exitosamente.");
 		    } else {
 		        response.getWriter().println("Hubo un problema al agregar el seguro.");
-		    }
+		    }*/
 	    }
 		
 		/*
@@ -113,7 +124,8 @@ public class servletSeguro extends HttpServlet {
 	        }
 	        return tiposSeguros;
 	    }*/
-
+		
+		/*
 	    private boolean agregarSeguro(Seguro seguro) {
 	        Connection connection = null;
 	        PreparedStatement statement = null;
@@ -142,6 +154,6 @@ public class servletSeguro extends HttpServlet {
 	            }
 	            AccesoDB.closeConnection(connection);
 	        }
-	    }
+	    }*/
 
 }

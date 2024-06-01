@@ -18,7 +18,7 @@ public class AccesoDB {
 	public static Connection getConnection() throws SQLException {
         // Registrar el driver de MySQL
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             throw new SQLException("No se encontró el driver de MySQL", e);
         }
