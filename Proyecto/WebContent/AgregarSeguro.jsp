@@ -1,3 +1,5 @@
+<%@page import="negocio.TipoSeguro" %>
+<%@page import="java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%> 
     
@@ -18,8 +20,19 @@
 		Descripción: <input type="text" name="txtDescripcion">
 		<br>
 		<br>
+		<% 
+			ArrayList<TipoSeguro> listaTipos = null;
+			if(request.getAttribute("ListaTipos")!=null){
+				listaTipos= (ArrayList<TipoSeguro>)request.getAttribute("ListaTipos");
+			}
+		%>
 			<b>Tipo seguro: </b>
 			<select name="tipoSeguro">
+				<%
+					if(listaTipos!=null)
+					for(TipoSeguro ts : listaTipos){%>
+						<option value=<%=ts.getDescripcion()%>></option>
+			<%} %>
 			</select>
 		<br>
 		Costo contratación: <input type="text" name="txtCostoContratacion">

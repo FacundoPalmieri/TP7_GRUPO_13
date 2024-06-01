@@ -3,11 +3,9 @@ package servlets;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import negocio.AccesoDB;
+import negocio.ListarTiposSeguro;
 import negocio.Seguro;
 import negocio.TipoSeguro;
 
@@ -36,16 +35,26 @@ public class servletSeguro extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		if(request.getParameter("Param")!=null) {
+			ListarTiposSeguro ts = new ListarTiposSeguro();
+		    ArrayList<TipoSeguro> listaTiposSeguros=new ArrayList<TipoSeguro>();
+		    listaTiposSeguros = ts.listarTodos();
+		    request.setAttribute("ListaTipos", listaTiposSeguros);
+		    
+		    RequestDispatcher rd = request.getRequestDispatcher("AgregarSeguro.jsp");
+		    rd.forward(request, response);
+		};
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 String descripcion = request.getParameter("txtDescripcion");
+		 	String descripcion = request.getParameter("txtDescripcion");
 		    String tipoSeguroParam = request.getParameter("tipoSeguro");
 		    int idTipo = 1; 
+		    
 
 		    if (tipoSeguroParam != null && !tipoSeguroParam.isEmpty()) {
 		        idTipo = Integer.parseInt(tipoSeguroParam);
@@ -64,7 +73,8 @@ public class servletSeguro extends HttpServlet {
 		        response.getWriter().println("Hubo un problema al agregar el seguro.");
 		    }
 	    }
-
+		
+		/*
 	    private List<TipoSeguro> obtenerTiposSeguros() {
 	        List<TipoSeguro> tiposSeguros = new ArrayList<>();
 	        Connection connection = null;
@@ -102,7 +112,7 @@ public class servletSeguro extends HttpServlet {
 	            AccesoDB.closeConnection(connection);
 	        }
 	        return tiposSeguros;
-	    }
+	    }*/
 
 	    private boolean agregarSeguro(Seguro seguro) {
 	        Connection connection = null;

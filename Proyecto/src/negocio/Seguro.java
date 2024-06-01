@@ -11,7 +11,6 @@ public class Seguro {
     }
 	
 	public Seguro(int id, String descripcion, double costoContratacion, double costoMaximoAsegurado, TipoSeguro tipoSeguro) {
-        this.id = id;
         this.descripcion = descripcion;
         this.costoContratacion = costoContratacion;
         this.costoMaximoAsegurado = costoMaximoAsegurado;
@@ -20,10 +19,6 @@ public class Seguro {
 	
 	 public int getId() {
 	        return id;
-	    }
-
-	    public void setId(int id) {
-	        this.id = id;
 	    }
 
 	    public String getDescripcion() {

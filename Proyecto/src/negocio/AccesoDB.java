@@ -12,6 +12,7 @@ public class AccesoDB {
 	private static String user ="root";
     private static String pass = "root";
     private static String dbName = "segurosgroup";
+    private static Connection conexion;
 
 	
 	public static Connection getConnection() throws SQLException {
@@ -23,7 +24,13 @@ public class AccesoDB {
         }
 
         // Obtener la conexión
-        return DriverManager.getConnection(host + dbName , user , pass);
+        try {
+        	conexion = DriverManager.getConnection(host + dbName , user , pass);
+        }
+        catch(Exception e){
+        	e.printStackTrace();
+        }
+        return conexion;
     }
 
     /**
