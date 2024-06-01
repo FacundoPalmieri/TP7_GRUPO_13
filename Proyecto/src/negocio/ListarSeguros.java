@@ -15,7 +15,7 @@ public class ListarSeguros {
 		try {
 			conexion=AccesoDB.getConnection();
 			java.sql.Statement st=conexion.createStatement();
-			String query = "Select * from tiposeguros";
+			String query = "Select * from seguros";
 			ResultSet rs = st.executeQuery(query);
 			
 			while(rs.next()){
