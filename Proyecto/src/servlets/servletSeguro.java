@@ -61,99 +61,47 @@ public class servletSeguro extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 	/*
-			String descripcion = request.getParameter("txtDescripcion");
-		    String tipoSeguroParam = request.getParameter("tipoSeguro");
-		    int idTipo = 1; 
-		    
+		 // Recoger datos del formulario
+        String descripcion = request.getParameter("txtDescripcion");
+        int idTipoSeguro = Integer.parseInt(request.getParameter("tipoSeguro")); 
+        double costoContratacion = Double.parseDouble(request.getParameter("txtCostoContratacion"));
+        double costoMaximo = Double.parseDouble(request.getParameter("txtCostoMaximo"));
 
-		    if (tipoSeguroParam != null && !tipoSeguroParam.isEmpty()) {
-		        idTipo = Integer.parseInt(tipoSeguroParam);
-		    }
+        // Crear objeto Seguro
+        Seguro seguro = new Seguro();
+        seguro.setDescripcion(descripcion);
+        seguro.setCostoContratacion(costoContratacion);
+        seguro.setCostoMaximoAsegurado(costoMaximo);
+        seguro.setIdTipoSeguro(idTipoSeguro);
 
-		    double costoContratacion = Double.parseDouble(request.getParameter("txtCostoContratacion"));
-		    double costoAsegurado = Double.parseDouble(request.getParameter("txtCostoMaximo"));
+        // Insertar seguro en la base de datos
+        try {
+            insertarSeguro(seguro);
+            request.setAttribute("mensaje", "Seguro agregado exitosamente");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            request.setAttribute("mensaje", "Error al agregar seguro");
+        }
 
-		    TipoSeguro tipoSeguro = new TipoSeguro(idTipo, null);
-		    Seguro seguro = new Seguro(0, descripcion, costoContratacion, costoAsegurado, tipoSeguro);
+        // Redirigir a la página de agregar seguro
+        RequestDispatcher rd = request.getRequestDispatcher("AgregarSeguro.jsp");
+        rd.forward(request, response);
+    }
 
-		    boolean exito = agregarSeguro(seguro);
-		    if (exito) {
-		        response.getWriter().println("El seguro fue agregado exitosamente.");
-		    } else {
-		        response.getWriter().println("Hubo un problema al agregar el seguro.");
-		    }*/
-	    }
-		
-		/*
-	    private List<TipoSeguro> obtenerTiposSeguros() {
-	        List<TipoSeguro> tiposSeguros = new ArrayList<>();
-	        Connection connection = null;
-	        PreparedStatement statement = null;
-	        ResultSet resultSet = null;
+    private void insertarSeguro(Seguro seguro) throws SQLException {
+        Connection conexion = null;
+        try {
+            conexion = AccesoDB.getConnection();
+            String query = "INSERT INTO seguros (descripcion, costoContratacion, costoAsegurado, idTipo) VALUES (?, ?, ?, ?)";
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setString(1, seguro.getDescripcion());
+            ps.setDouble(2, seguro.getCostoContratacion());
+            ps.setDouble(3, seguro.getCostoMaximoAsegurado());
+            ps.setInt(4, seguro.getIdTipoSeguro());
+            ps.executeUpdate();
+        } finally {
+            AccesoDB.closeConnection(conexion);
+        }
 
-	        try {
-	            connection = AccesoDB.getConnection();
-	            String sql = "SELECT idTipo, descripcion FROM tipoSeguros";
-	            statement = connection.prepareStatement(sql);
-	            resultSet = statement.executeQuery();
-
-	            while (resultSet.next()) {
-	                int idTipo = resultSet.getInt("idTipo");
-	                String descripcion = resultSet.getString("descripcion");
-	                tiposSeguros.add(new TipoSeguro(idTipo, descripcion));
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        } finally {
-	            if (resultSet != null) {
-	                try {
-	                    resultSet.close();
-	                } catch (SQLException e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	            if (statement != null) {
-	                try {
-	                    statement.close();
-	                } catch (SQLException e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	            AccesoDB.closeConnection(connection);
-	        }
-	        return tiposSeguros;
-	    }*/
-		
-		/*
-	    private boolean agregarSeguro(Seguro seguro) {
-	        Connection connection = null;
-	        PreparedStatement statement = null;
-
-	        try {
-	            connection = AccesoDB.getConnection();
-	            String sql = "INSERT INTO seguros (descripcion, idTipo, costoContratacion, costoAsegurado) VALUES (?, ?, ?, ?)";
-	            statement = connection.prepareStatement(sql);
-	            statement.setString(1, seguro.getDescripcion());
-	            statement.setInt(2, seguro.getTipoSeguro().getIdTipo());
-	            statement.setDouble(3, seguro.getCostoContratacion());
-	            statement.setDouble(4, seguro.getCostoMaximoAsegurado());
-
-	            int rowsInserted = statement.executeUpdate();
-	            return rowsInserted > 0;
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	            return false;
-	        } finally {
-	            if (statement != null) {
-	                try {
-	                    statement.close();
-	                } catch (SQLException e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	            AccesoDB.closeConnection(connection);
-	        }
-	    }*/
-
-}
+		}
+	}

@@ -31,7 +31,7 @@
 				<%
 					if(listaTipos!=null)
 					for(TipoSeguro ts : listaTipos){%>
-						<option value=<%=ts.getDescripcion()%>> <%=ts.getDescripcion() %> </option>
+						<option value=<%=ts.getIdTipo()%>> <%=ts.getDescripcion() %> </option>
 			<%} %>
 			</select>
 		<br>
