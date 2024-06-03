@@ -11,8 +11,8 @@ public class AccesoDB {
 
 	private static String host = "jdbc:mysql://localhost:3306/";
 	private static String user ="root";
-    //private static String pass = "root";
-    private static String pass = "ROOT";
+    private static String pass = "root";
+//    private static String pass = "ROOT";
     private static String dbName = "segurosgroup";
     private static Connection conexion;
 
