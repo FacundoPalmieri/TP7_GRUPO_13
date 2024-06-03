@@ -35,7 +35,25 @@ public class servletSeguro extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("Param")!=null) {
+		
+	//	if(request.getParameter("Param")!=null) {
+			
+		if(Integer.parseInt(request.getParameter("Param")) == 2 ) {
+			SeguroDao Sdao = new SeguroDao();
+		//	 ArrayList<Seguro> ListaSeguros=new ArrayList<Seguro>();
+			ArrayList<Seguro> ListaSeguros=  Sdao.listar();
+		//	    ListaSeguros = Sdao.listar();
+			    
+			    request.setAttribute("ListaS", ListaSeguros);
+			    
+			    
+			    RequestDispatcher rd = request.getRequestDispatcher("ListarSeguro.jsp");
+			    rd.forward(request, response);
+
+			 };
+		
+		
+	if(Integer.parseInt(request.getParameter("Param")) == 1)  {
 			SeguroDao Sdao = new SeguroDao();
 		    ArrayList<TipoSeguro> listaTiposSeguros=new ArrayList<TipoSeguro>();
 		    listaTiposSeguros = Sdao.listarTodos();
@@ -53,8 +71,9 @@ public class servletSeguro extends HttpServlet {
 		    RequestDispatcher rd = request.getRequestDispatcher("AgregarSeguro.jsp");
 		    rd.forward(request, response);
 		};
-		
+	
 	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -83,6 +102,8 @@ public class servletSeguro extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("AgregarSeguro.jsp");
         rd.forward(request, response);
     }
+	
+
 }
 
   
