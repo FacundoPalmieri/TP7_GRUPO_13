@@ -13,8 +13,8 @@ public class SeguroDao {
 	
 	private String host = "jdbc:mysql://localhost:3306/";
 	private String user = "root";
-	//private String pass = "root";
-	private String pass = "ROOT";
+	private String pass = "root";
+	//private String pass = "ROOT";
 	private String dbName = "segurosgroup";
 	
 	 public int insertarSeguro(Seguro seguro) {
@@ -116,6 +116,47 @@ public class SeguroDao {
 		}
 		return tipos;
 	}
+	
+	
+	
+	
+	public int obtenerProximoIdSeguro() {
+	int proximoId = 1;
+		 try {
+				Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		 
+		    ResultSet rs = null;
+			Connection cn = null;
+			try
+			{
+				cn = DriverManager.getConnection(host+dbName, user,pass);
+				Statement st = cn.createStatement();
+				String query = "SELECT COUNT(*) AS total FROM seguros";
+				 rs = st.executeQuery(query);
+				 
+				  if (rs.next()) {
+			            int filas = rs.getInt("total");
+			            if (filas == 0) {
+			                return proximoId;
+			            } else {
+			                return filas + 1;
+			            }
+				 }
+			}	
+			
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			 return proximoId;
+		}
+		 
+		 
 	
 	
 	

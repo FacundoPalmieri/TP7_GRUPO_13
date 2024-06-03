@@ -61,12 +61,10 @@ public class servletSeguro extends HttpServlet {
 		    request.setAttribute("ListaTipos", listaTiposSeguros);
 		    
 		 
-		    ArrayList<Seguro> listaSeguros = new ArrayList<Seguro>();
-		    listaSeguros=Sdao.listar();
-		    int idSeguro=1;
-		    if(listaSeguros.size()>0) {
-		    	idSeguro = listaSeguros.get(listaSeguros.size()-1).getId()+1;
-		    }
+		 
+		 
+		    int idSeguro = Sdao.obtenerProximoIdSeguro();
+		    
 		    request.setAttribute("idSeguro", idSeguro);
 		    
 		    RequestDispatcher rd = request.getRequestDispatcher("AgregarSeguro.jsp");
@@ -97,9 +95,18 @@ public class servletSeguro extends HttpServlet {
 
         SeguroDao sDao = new SeguroDao();
         filas = sDao.insertarSeguro(seguro);
+        
+     // Obtener el ID del nuevo seguro
+        int idSeguro = sDao.obtenerProximoIdSeguro();
+        
+        ArrayList<TipoSeguro> listaTiposSeguros=new ArrayList<TipoSeguro>();
+	    listaTiposSeguros = sDao.listarTodos();
+	 
 
         // Redirigir a la página de agregar seguro
         request.setAttribute("cantFilas", filas);
+        request.setAttribute("idSeguro", idSeguro);
+        request.setAttribute("ListaTipos", listaTiposSeguros);
         RequestDispatcher rd = request.getRequestDispatcher("AgregarSeguro.jsp");
         rd.forward(request, response);
     }
