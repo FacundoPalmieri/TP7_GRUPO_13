@@ -117,7 +117,32 @@ public class SeguroDao {
 		return tipos;
 	}
 	
-	
+	public ArrayList<Seguro> listarPorTipo(int idTipo){
+	    ArrayList<Seguro> lista = new ArrayList<Seguro>();
+	    try {
+	        conexion = AccesoDB.getConnection();
+	        java.sql.PreparedStatement st = conexion.prepareStatement("SELECT * FROM seguros WHERE idTipo = ?");
+	        st.setInt(1, idTipo);
+	        ResultSet rs = st.executeQuery();
+	        
+	        while(rs.next()){
+	            Seguro s = new Seguro();
+	            s.setId(rs.getInt("idSeguro"));
+	            s.setDescripcion(rs.getString("descripcion"));
+	            s.setCostoContratacion(rs.getDouble("costoContratacion"));
+	            s.setCostoMaximoAsegurado(rs.getDouble("costoAsegurado"));
+	            TipoSeguro ts = new TipoSeguro();
+	            ts.setIdTipo(rs.getInt("idTipo"));
+	            s.setIdTipoSeguro(ts.getIdTipo());
+	            lista.add(s);
+	        }
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            AccesoDB.closeConnection(conexion);
+	        } catch(Exception e){
+	            e.printStackTrace();
 	
 	
 	public int obtenerProximoIdSeguro() {
