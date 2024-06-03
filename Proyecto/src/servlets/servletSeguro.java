@@ -36,22 +36,23 @@ public class servletSeguro extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-	//	if(request.getParameter("Param")!=null) {
-			
-		if(Integer.parseInt(request.getParameter("Param")) == 2 ) {
-			SeguroDao Sdao = new SeguroDao();
-		//	 ArrayList<Seguro> ListaSeguros=new ArrayList<Seguro>();
-			ArrayList<Seguro> ListaSeguros=  Sdao.listar();
-		//	    ListaSeguros = Sdao.listar();
-			    
-			    request.setAttribute("ListaS", ListaSeguros);
-			    
-			    
-			    RequestDispatcher rd = request.getRequestDispatcher("ListarSeguro.jsp");
-			    rd.forward(request, response);
-
-			 };
 		
+		
+	    String paramValue = request.getParameter("Param");
+	    if (paramValue != null && paramValue.equals("2")) {
+	        try {
+	            SeguroDao Sdao = new SeguroDao();
+	            ArrayList<Seguro> ListaSeguros = Sdao.listar();
+	            
+	            request.setAttribute("ListaS", ListaSeguros);
+	            
+	            RequestDispatcher rd = request.getRequestDispatcher("ListarSeguros.jsp");
+	            rd.forward(request, response);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+			 		 
 		
 	if(Integer.parseInt(request.getParameter("Param")) == 1)  {
 			SeguroDao Sdao = new SeguroDao();
